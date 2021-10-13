@@ -41,15 +41,17 @@
 			var boardWidth = board.width();	// the maximum X-Coordinate of the screen
 
 			// Every 50 milliseconds, call the update Function (see below)
-			setInterval(update, 50);
+			setInterval(update, .50);
 			
 			// Every time the box is clicked, call the handleBoxClick Function (see below)
 			box.on('click', handleBoxClick);
 
 			// moves the Box to a new position on the screen along the X-Axis
 			function moveBoxTo(newPositionX) {
-				box.css("left", newPositionX);
+				box.css("left",newPositionX );
+		
 			}
+
 
 			// changes the text displayed on the Box
 			function changeBoxText(newText) {
@@ -61,7 +63,12 @@
 			//////////////////////////////////////////////////////////////////
 			
 			// TODO 2 - Variable declarations 
-			
+			var positionX = 0;
+			var speed = 1;
+			var number = 0; 
+
+				
+
 
 			
 			/* 
@@ -70,7 +77,15 @@
 			turn it around! 
 			*/
 			function update() {
-				
+				moveBoxTo(positionX);
+				positionX += speed;
+				if (positionX > boardWidth){
+					speed = -speed;
+				} 
+				if (positionX < 0){
+					speed = -speed;
+				}
+
 
 			};
 
@@ -80,10 +95,17 @@
 			the left side of the screen.
 			*/
 			function handleBoxClick() {
-				
-
-
+				number += 1;
+				box.text(number);
+				positionX = 0;
+				if (speed < 0) {
+					speed -= .25;
+				} else if (speed > 0) {
+					speed += .25;
+				}
 			};
+
+
 		})();
 	</script>
 </body>
